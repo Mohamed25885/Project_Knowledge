@@ -156,6 +156,10 @@ body {
   color: #fff !important;
 }
 
+.header-area .logo img{
+          max-width: 80px;
+  }
+
 @media (max-width: 991px) {
   html, body {
     overflow-x: hidden;
@@ -699,6 +703,7 @@ header
   .header-area .logo {
     margin-left: 30px;
   }
+  
   .header-area .menu-trigger {
     display: block !important;
   }
@@ -1629,6 +1634,8 @@ footer #search button:hover {
 .footer-widget .logo img {
   max-width: 96px;
   margin-bottom: 30px;
+
+
 }
 
 .footer-widget h4 {
