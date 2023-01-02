@@ -1,0 +1,17 @@
+body {
+    
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #0dcaf0;
+    background-image: url(../images/slider-left-dec.png);
+    background-color : #0dcaf0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
