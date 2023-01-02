@@ -341,3 +341,19 @@ function handleEndGame() {
 function closeOptionModal() {
   document.getElementById("option-modal").style.display = "none";
 }
+
+
+function COVID19() 
+{
+  if (symptoms) {
+      
+  }
+      if (numberHands > 1) {
+          wonOrLost(h2.cards, h2);
+      }
+          if (numberHands > 2) {
+              wonOrLost(h3.cards, h3);
+          }
+  playAgainOption();
+}
+
