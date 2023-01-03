@@ -1,180 +1,7 @@
 //this would be the object shape for storing the questions
 //you can change the questions to your own taste or even add more questions..
 const questions = [
-  {
-    question: "Do you have Headache ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
 
-  {
-    question: "Do you have Fever ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Sweating ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Vomiting ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Loss of taste & smile ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Runny nose ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Sneezing ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Sore of throat  ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Bodyache ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: `"Do you have Chills ?`,
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Dirrhoea ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Stomachache ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Poor apetite?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Rash ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have Conjuctivitis ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have  ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have symptom ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have symptom ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have symptom ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have symptom?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have symptom ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have symptom ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have symptom?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have symptom ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
-
-  {
-    question: "Do you have symptom ?",
-    optionA: "YES",
-    optionB: "NO",
-    
-  },
 ];
 
 let shuffledQuestions = []; //empty array to hold shuffled selected questions out of all available questions
@@ -182,7 +9,7 @@ let shuffledQuestions = []; //empty array to hold shuffled selected questions ou
 function handleQuestions() {
   //function to shuffle and push 10 questions to shuffledQuestions array
   //app would be deDo you have symptomng with 10questions per session
-  while (shuffledQuestions.length <= 9) {
+  while (shuffledQuestions.length <= (questions.length - 1)) {
     const random = questions[Math.floor(Math.random() * questions.length)];
     if (!shuffledQuestions.includes(random)) {
       shuffledQuestions.push(random);
@@ -213,23 +40,21 @@ function NextQuestion(index) {
   // document.getElementById("option-four-label").innerHTML =
   //   currentQuestion.optionD;
 }
-
+let trueSymptoms = [];
 function checkForAnswer() {
   const currentQuestion = shuffledQuestions[indexNumber]; //gets current Question
   if (currentQuestion == null) {
     return;
   }
   const currentQuestionAnswer = currentQuestion.correctOption; //gets current Question's answer
-  const options = document.getElementsByName("option"); //gets all elements in dom with name of 'option' (in this the radio inputs)
+  const options = document.querySelectorAll(`[name='option']:checked`); //gets all elements in dom with name of 'option' (in this the radio inputs)
   let correctOption = null;
-
   options.forEach((option) => {
-    if (option.value === currentQuestionAnswer) {
+    if (option.value === "optionA") {
       //get's correct's radio input with correct answer
-      correctOption = option.labels[0].id;
+      trueSymptoms.push(currentQuestion.id)
     }
   });
-
   //checking to make sure a radio input has been checked or an option being chosen
   if (
     options[0].checked === false &&
@@ -297,33 +122,26 @@ function unCheckRadioButtons() {
 }
 
 // function for when all questions being answered
-function handleEndGame() {
-  /*  let remark = null
-    let remarkColor = null */
-
-  // condition check for player remark and remark color
-  /* if (playerScore <= 3) {
-        remark = "Bad Grades, Keep Practicing."
-        remarkColor = "red"
+async function handleEndGame() {
+  let query = "(";
+  for (let i = 0; i < trueSymptoms.length; i++) {
+    query += `symptoms~'${trueSymptoms[i]}'`;
+    if ((i + 1) === trueSymptoms.length) {
+      break;
     }
-    else if (playerScore >= 4 && playerScore < 7) {
-        remark = "Average Grades, You can do better."
-        remarkColor = "orange"
-    }
-    else if (playerScore >= 7) {
-        remark = "Excellent, Keep the good work going."
-        remarkColor = "green"
-    }
-    const playerGrade = (playerScore / 10) * 100 */
-
-  //data to display to score board
-  /*  document.getElementById('remarks').innerHTML = remark
-    document.getElementById('remarks').style.color = remarkColor
-    //document.getElementById('grade-percentage').innerHTML = playerGrade
-    document.getElementById('wrong-answers').innerHTML = wrongAttempt
-    document.getElementById('right-answers').innerHTML = playerScore
-    document.getElementById('score-modal').style.display = "flex" */
-  alert("Hello world");
+    query += "&&";
+  }
+  query += ")";
+  const result = await pb.collection('disease').getFullList(500, {
+    sort: '-created',
+    filter: query
+  });
+  if (!result[0]) {
+    return;
+  }
+  alert(result[0].disease);
+  document.querySelector(`.grade-details`).innerHTML = `<p class='text-dark'>${result[0].disease}</p>`;
+  //$('#score-modal').modal('toggle');
 }
 
 //closes score modal, resets game and reshuffles questions
@@ -343,17 +161,32 @@ function closeOptionModal() {
 }
 
 
-function COVID19() 
-{
+function COVID19() {
   if (symptoms) {
-      
+
   }
-      if (numberHands > 1) {
-          wonOrLost(h2.cards, h2);
-      }
-          if (numberHands > 2) {
-              wonOrLost(h3.cards, h3);
-          }
+  if (numberHands > 1) {
+    wonOrLost(h2.cards, h2);
+  }
+  if (numberHands > 2) {
+    wonOrLost(h3.cards, h3);
+  }
   playAgainOption();
 }
 
+function initialize_questions() {
+
+  for (const symptom of SYMPTOMS) {
+    questions.push({
+      question: `Do you have ${symptom.name}?`,
+      id: symptom.id,
+      optionA: "YES",
+      optionB: "NO",
+    });
+  }
+
+  document.getElementById("question-total").innerHTML = SYMPTOMS.length;
+
+  NextQuestion(0);
+
+}

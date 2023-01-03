@@ -895,13 +895,16 @@ Banner Style
 --------------------------------------------- 
 */
 
-.main-banner {
+.main-banner.no-after {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   padding: 250px 120px 150px 120px;
   position: relative;
   overflow: hidden;
+}
+.main-banner.no-after:after {
+  content: none;
 }
 
 .main-banner:after {
@@ -916,6 +919,7 @@ Banner Style
   height: 100%;
   z-index: 1;
 }
+
 
 .main-banner .left-content {
   margin-right: 15px;
